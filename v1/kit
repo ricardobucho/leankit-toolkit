@@ -336,23 +336,23 @@ Kit
     kit.log("👉 Add Card -> kit add-card|ac", :cyan)
     kit.log(" * Adds a card without creating a branch", :green)
     kit.log_empty_line
-    kit.log("👉 Update Card -> kit update-card|uc", :cyan)
+    kit.log("👉 Update Card -> kit update-card|uc [card-id]", :cyan)
     kit.log(" * Updates the given cards", :green)
     kit.log_empty_line
-    kit.log("👉 Move Card -> kit move-card|mc", :cyan)
+    kit.log("👉 Move Card -> kit move-card|mc [card-id,...] [lane=dev]", :cyan)
     kit.log(" * Changes the lane of the given cards", :green)
     kit.log_empty_line
-    kit.log("👉 Remove Card -> kit remove-card|rc", :cyan)
+    kit.log("👉 Remove Card -> kit remove-card|rc [card-id,...]", :cyan)
     kit.log(" * Removes the given cards", :green)
     kit.log_empty_line
     kit.log("👉 Branch Name -> kit branch-name|bn [card-id]", :cyan)
-    kit.log(" * Retrieve the branch name", :green)
+    kit.log(" * Retrieve the branch name of card", :green)
     kit.log_empty_line
-    kit.log("👉 Rename Branch -> kit rename-branch|rb [card-id]", :cyan)
-    kit.log(" * Sets the branch name based on card info", :green)
+    kit.log("👉 Rename Branch -> kit rename-branch|rb [card-id] [branch-name]", :cyan)
+    kit.log(" * Renames a branch for a given card id", :green)
     kit.log_empty_line
-    kit.log("👉 Set Branch -> kit set-branch|sb [card-id]", :cyan)
-    kit.log(" * Rename the branch for a card", :green)
+    kit.log("👉 Sync Branch -> kit sync-branch|sb [card-id]", :cyan)
+    kit.log(" * Sync the branch name for a card from its name", :green)
     kit.log_empty_line
   })
   .add_command(['review', 'r'], lambda { |kit, opts|
@@ -558,7 +558,7 @@ Kit
       kit.shell(:GIT_CHECKOUT, card['branch'])
     end
   })
-  .add_command(['set-branch', 'sb'], lambda { |kit, opts|
+  .add_command(['sync-branch', 'sb'], lambda { |kit, opts|
     card_id = kit.parse_card_id(opts[:id] || nil)
     card_local = kit.card_by_id(card_id)
     card = kit.leankit_get("io/card/#{card_local['id']}")
@@ -590,12 +590,12 @@ Kit
 
     kit.log_empty_line
     if card_local
-      new_branch = (opts[:lane] || card_local['branch']).to_sym
+      new_branch = "#{kit.git_initials}/#{(opts[:lane] || card_local['branch'])}"
       kit.update_card_branch(card_local, new_branch)
       kit.shell(:GIT_BRANCH_RENAME, new_branch)
       kit.log("🌱 [LOCAL] #{new_branch}", :cyan)
     elsif card
-      new_branch = (opts[:lane] || card['branch']).to_sym
+      new_branch = "#{kit.git_initials}/#{(opts[:lane] || card_local['branch'])}"
       kit.update_card_branch(card_local, new_branch)
       kit.shell(:GIT_BRANCH_RENAME, new_branch)
       kit.log("🌱 [LEANKIT] #{new_branch}", :cyan)
