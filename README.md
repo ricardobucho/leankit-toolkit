@@ -12,7 +12,7 @@ This script was made to improve the speed of switching between cards as well as 
 * Add the `alias` below to your `.zshrc` file
 
 ## Environment Configuration
-* `LEANKIT_API_ACCOUNT_NAME`: Whatever is before the `.leankit.com`
+* `LEANKIT_ACCOUNT_NAME`: Whatever is before the `.leankit.com`
 * `LEANKIT_USER_EMAIL`: Your email
 * `LEANKIT_USER_PASSWORD`: Your password
 * `GIT_INITIALS`: Your initials to be used when creating a branch
