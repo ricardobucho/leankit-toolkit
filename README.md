@@ -1,9 +1,9 @@
 # Leankit Toolkit (Kit)
 
-This toolkit was made to improve the speed of switching between cards as well as provide an overview to its user of what is in progress at any given time. A card must always be added to `kit` manually with the proper command and has to be moved between states manually as well. All operations are local, nothing is synchronized elsewhere.
+This script was made to improve the speed of switching between cards as well as provide an overview to its user of what is in progress at any given time. A card must always be added to `kit` manually with the proper command and has to be moved between states manually as well. All operations are local, nothing is synchronized elsewhere.
 
 ## Requirements
-* Kit was built using Ruby 2.5.7 and was not tested with older versions
+* Kit was built using Ruby 2.5.7 and was not tested with older or newer versions, use at your own discretion
 
 ## Installing
 * Clone this repo somewhere
@@ -54,3 +54,8 @@ kit list
 # List all imported cards with their description [review|r]
 kit review
 ```
+
+## Disclaimer
+* Code is not high quality and any standard it might match is pure coincidence
+* Feel free to let me know about any issues or features that would be cool to add
+* A V2 is in the works which tries to make it a bit more readable and performant (no ETA)
