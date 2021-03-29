@@ -1,4 +1,4 @@
-# Leankit Toolkit (Kit)
+# LeanKit Toolkit (Kit)
 
 This script was made to improve the speed of switching between cards as well as provide an overview to its user of what is in progress at any given time. A card must always be added to `kit` manually with the proper command and has to be moved between states manually as well. All operations are local, nothing is synchronized elsewhere.
 
@@ -47,6 +47,10 @@ kit branch LK_CARD_ID
 
 # Move a card to a different state [move-card|mc]
 kit move-card xx0000 mrg
+
+# Rename card branch locally [rename-branch|rb]
+# From: ab/xx0000-card-title, to: ab/xx0000-new-card-title
+kit rename-branch xx0000 new-card-title
 
 # List all imported cards without their description [list|l]
 kit list
