@@ -29,6 +29,7 @@ class Kit
     }
 
     @env = {
+      DEPLOY_BRANCH: nil,
       LEANKIT_ACCOUNT_NAME: nil,
       LEANKIT_USER_EMAIL: nil,
       LEANKIT_USER_PASSWORD: nil,
@@ -56,6 +57,10 @@ class Kit
     @env = @env.map do |key, val|
       [key, ENV.fetch(key.to_s, nil)]
     end.to_h
+  end
+
+  def env
+    @env
   end
 
   def prepare_message(message)
@@ -527,7 +532,7 @@ Kit
     card = kit.leankit_get("io/card/#{card_id}")
 
     if card
-      kit.shell(:GIT_CHECKOUT, @env[:DEPLOY_BRANCH])
+      kit.shell(:GIT_CHECKOUT, kit.env[:DEPLOY_BRANCH])
       kit.shell(:GIT_PULL)
       kit.shell(:GIT_CHECKOUT_BRANCH, kit.branch_name_of(card))
       kit.shell(:KIT_ADD_CARD, [card_id, lane])
@@ -545,7 +550,7 @@ Kit
     card = kit.leankit_get("io/card/#{card_id}")
 
     if card
-      kit.shell(:GIT_CHECKOUT, @env[:DEPLOY_BRANCH])
+      kit.shell(:GIT_CHECKOUT, kit.env[:DEPLOY_BRANCH])
       kit.shell(:GIT_CHECKOUT_BRANCH, kit.branch_name_of(card))
       kit.shell(:KIT_ADD_CARD, [card_id, lane])
     end
