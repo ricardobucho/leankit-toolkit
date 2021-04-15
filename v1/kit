@@ -565,15 +565,14 @@ Kit
   })
   .add_command(['sync-branch-name', 'sbn'], lambda { |kit, opts|
     card_id = kit.parse_card_id(opts[:id] || nil)
-    card = kit.leankit_get("io/card/#{card_local['id']}")
     card_local = kit.card_by_id(card_id)
+    card = kit.leankit_get("io/card/#{card_local['id']}")
 
     if card && card_local
       new_branch = kit.branch_name_of(card)
 
-      kit.update_card_branch(card_local, new_branch)
-
       kit.shell(:GIT_CHECKOUT, card_local['branch'])
+      kit.update_card_branch(card_local, new_branch)
       kit.shell(:GIT_BRANCH_RENAME, new_branch)
 
       kit.log_empty_line
@@ -602,9 +601,8 @@ Kit
 
     new_branch = "#{kit.git_initials}/#{prefix}#{header}-#{opts[:lane]}"
 
-    kit.update_card_branch(card_local, new_branch)
-
     kit.shell(:GIT_CHECKOUT, card_local['branch'])
+    kit.update_card_branch(card_local, new_branch)
     kit.shell(:GIT_BRANCH_RENAME, new_branch)
 
     kit.log_empty_line
