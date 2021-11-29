@@ -133,7 +133,7 @@ class Kit
   end
 
   def lanes
-    [:dev, :rev, :fs, :acc, :mrg, :arc]
+    [:dev, :rev, :fs, :acc, :mrg, :arc, :blk]
   end
 
   def parse_options
@@ -608,5 +608,17 @@ Kit
     kit.log_empty_line
     kit.log("🌱 [LOCAL] #{new_branch}", :cyan)
     kit.log_empty_line
+  })
+  .add_command(['force-remove', 'fr'], lambda { |kit, opts|
+    card_id = opts[:id]
+
+    unless card_id
+      kit.danger("Card operation failed: #{opts[:command]} #{card_id}")
+      return
+    end
+
+    kit.remove_card({ 'id' => card_id })
+
+    kit.success("Card operation successful: #{opts[:command]} #{card_id}")
   })
   .run
